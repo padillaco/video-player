@@ -1,0 +1,53 @@
+.video-frame {
+	 display: block;
+	 position: absolute;
+	 width: 100%;
+	 height: 100%;
+}
+ .video-frame-wrapper {
+	 opacity: 0;
+	 z-index: -1;
+	 transition: opacity 400ms;
+	 position: fixed;
+	 top: 0;
+	 left: 0;
+	 right: 0;
+	 bottom: 0;
+	 padding: 0 5.556%;
+	 display: flex;
+	 justify-content: center;
+	 align-items: center;
+   pointer-events: none;
+}
+ .video-frame-wrapper.-visible {
+	 opacity: 1;
+   pointer-events: all;
+}
+ .video-frame-wrapper.-active {
+	 z-index: 10000;
+}
+ .video-frame-close {
+	 position: absolute;
+	 top: 0;
+	 right: 0;
+	 padding: 2rem;
+	 transition: opacity 300ms;
+	 border: none;
+	 background-color: transparent;
+	 margin: 0;
+	 color: white;
+}
+ .video-frame-close:hover {
+	 opacity: 0.7;
+}
+ .video-frame-close svg {
+	 display: block;
+	 width: 1.2rem;
+	 height: 1.2rem;
+}
+ .video-frame-center {
+	 position: relative;
+}
+ .video-frame-close {
+	 cursor: pointer;
+}

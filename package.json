@@ -1,0 +1,32 @@
+{
+  "name": "@padillaco/video-player",
+  "version": "1.0.0",
+  "description": "A basic modal video player that handles both Youtube and Vimeo",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack --mode production",
+    "start": "webpack --watch",
+    "prepublishOnly": "webpack --mode production"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
+  }
+  "keywords": [
+    "video-player",
+    "youtube",
+    "vimeo"
+  ],
+  "author": "Padilla",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "^7.6.2",
+    "@babel/plugin-proposal-class-properties": "^7.5.5",
+    "@babel/preset-env": "^7.6.3",
+    "babel-loader": "^8.0.6",
+    "css-loader": "^3.2.0",
+    "style-loader": "^1.0.0",
+    "webpack": "^4.41.0",
+    "webpack-cli": "^3.3.9"
+  }
+}
