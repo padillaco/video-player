@@ -8,9 +8,7 @@
       - fixBodyOnPlay boolean: sets the body element to position: fixed when modal is open (default: true)
       - playerWidth number: percentage of the viewport the player should take up (default: 88)
       - onPlay function(videoId, videoName): function that executes when a video starts to play.
-      - onStop function(videoId, videoName): function that executes when a video stops playing
-  - play(type, videoId, videoName, cb): Plays the video and executes the callback function, if provided
-  - stop(cb): Stops the current video and closes the modal. Executes optional callback
+      - onStop function(videoId, videoName): function that executes when a video stops playing.
 */
 
 import appendModal from './appendModal';
@@ -31,7 +29,7 @@ import {
 
 class VideoPlayer {
   constructor(config = {}) {
-    this.buttonElements = this._defaultButtonElements(config);
+    this.buttonElements = this._setButtonElements(config);
     this.closeOnEscape = initBooleanProp(config, 'closeOnEscape', true);
     this.fixBodyOnPlay = initBooleanProp(config, 'fixBodyOnPlay', true);
     this.closeButtonColor = config.closeButtonColor || closeButtonColor;
@@ -39,6 +37,8 @@ class VideoPlayer {
     this.playerWidth = config.playerWidth || playerWidth;
     this.videoActive = false;
     this.videoType = null;
+    this.videoId = null;
+    this.videoName = null;
     appendModal(document.body, this.closeButtonColor, this.backgroundColor);
     this.frameWrapper = this._setFrameWrapper();
     this.frameCenter = this._setFrameCenter();
@@ -46,8 +46,9 @@ class VideoPlayer {
     this.onPlay = config.onPlay || onPlay;
     this._setEventListeners(config);
     window.showVideoFrame = () => {
+      const { videoName, videoId, videoType } = this;
       this.videoFrameActive = true;
-      this.onPlay();
+      this.onPlay({ videoName, videoId, videoType });
       resizeVideoFrame(this.frameCenter);
       if (this.fixBodyOnPlay) document.body.style = 'position: fixed';
     };
@@ -65,9 +66,9 @@ class VideoPlayer {
     return document.querySelector(`.${defaultClasses.frameClose}`);
   };
 
-  _defaultButtonElements = config => {
+  _setButtonElements = config => {
     if (config.buttonElements) return config.buttonElements;
-    const els = document.querySelectorAll(`.${defaultClasses.buttonElements}`);
+    const els = document.querySelectorAll(`[data-video-trigger]`);
     if (els.length === 0) {
       console.warn('VideoPlayer Error: No Button Elements could be found');
     }
@@ -94,34 +95,33 @@ class VideoPlayer {
 
   _playVideo = ({ currentTarget }) => {
     if (!this.videoActive) {
-      var videoId, videoType;
-
       for (let type of videoTypes) {
         if (currentTarget.dataset[`${type}Id`]) {
-          videoId = currentTarget.dataset[`${type}Id`];
-          videoType = type;
+          this.videoId = currentTarget.dataset[`${type}Id`];
+          this.videoType = type;
+          this.videoName = currentTarget.dataset.videoName;
         }
       }
 
-      if (videoId.length > 0) {
-        this._loadModal(videoId, videoType);
+      if (this.videoId.length > 0) {
+        this._loadModal();
       } else {
         console.error('VideoId could not be found on target: ', currentTarget);
       }
     }
   };
 
-  _loadModal = (videoId, videoType) => {
+  _loadModal = () => {
     if (this.videoFrame) {
       this.videoFrame.remove();
     }
 
     this.videoFrame = createIFrame();
 
-    if (videoType === 'youtube') {
-      this.videoFrame.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`;
-    } else if (videoType === 'vimeo') {
-      this.videoFrame.src = `https://player.vimeo.com/video/${videoId}?autoplay=1`;
+    if (this.videoType === 'youtube') {
+      this.videoFrame.src = `https://www.youtube.com/embed/${this.videoId}?autoplay=1&rel=0`;
+    } else if (this.videoType === 'vimeo') {
+      this.videoFrame.src = `https://player.vimeo.com/video/${this.videoId}?autoplay=1`;
     }
     this.frameCenter.appendChild(this.videoFrame);
     this.frameWrapper.className += ' -active -visible';

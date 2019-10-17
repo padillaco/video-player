@@ -5,8 +5,7 @@ export const backgroundColor = 'rgba(0,0,0,0.9)';
 export const defaultClasses = {
   frameCenter: 'video-frame-center',
   frameWrapper: 'video-frame-wrapper',
-  frameClose: 'video-frame-close',
-  buttonElements: 'videoPlayer-button'
+  frameClose: 'video-frame-close'
 };
 export const errorMessages = {
   noButtons: 'VideoPlayer Error: No Button Elements could be found'

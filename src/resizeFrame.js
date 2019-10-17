@@ -1,5 +1,4 @@
 export default function resizeVideoFrame(frameCenter) {
-  console.log('resizing');
   const winWidth = window.innerWidth;
   const winHeight = window.innerHeight;
   let centerWidth = 0.88888 * winWidth;

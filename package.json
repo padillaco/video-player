@@ -1,6 +1,6 @@
 {
   "name": "@padillaco/video-player",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A basic modal video player that handles both Youtube and Vimeo",
   "main": "dist/index.js",
   "scripts": {
