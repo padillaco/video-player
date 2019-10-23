@@ -17,16 +17,21 @@ npm install @padillaco/video-player
   new VideoPlayer(config);
 ```
 
-Elements that trigger the video modal must have a `data-<videoType>-id` attribute.  This is the unique id of the video.  VideoId can be either "youtube" or "vimeo". They must also have the class `video-player-button`, unless you supply the button elements through the configuration (see configuration section below).  You can have multiple player button elements.  By default, the player will look for all elements with the class `video-player-button`.  You can optionally set a `data-video-name` attribute that will be available in the `onPlay   callback.  This is useful for sending Google Analytics Events.  Here's a basic example:
-
+VideoPlayer looks for elements that have a `data-video-trigger` attribute, unless you provide the elements directly (see configuration). These elements alsmo must have a `data-<videoType>-id` attribute.  This is the unique id of the video.  VideoType can be either "youtube" or "vimeo". You can have multiple player button elements.  You can optionally set a `data-video-name` attribute that will be available in the `onPlay` callback.  This is useful for sending Google Analytics Events.  Here's a basic example:
 
 ```html
  <button 
-  class="video-player-button" 
   data-video-trigger
   video-youtube-id="lkajg292" 
   data-video-name="MyVideo">Play</button>
 ```
+
+| Property     | Type   | Description                                                         | Required |
+| ------------ | ------ | ------------------------------------------------------------------- | -------- |
+| VideoTrigger | null   | Attribute to trigger the player library                             | Yes      |
+| VideoId      | string | Id of the video as set via the `data-<videoType>-id` data attribute | Yes      |
+| VideoType    | string | Type of the video. Either "youtube" or "vimeo"                      | Yes      |
+| VideoName    | string | Name of the video as set via the `data-video-name` data attribute   | No       |
 
 ## Configuration
 
@@ -41,11 +46,12 @@ The VideoPlayer is configurable:
 | PlayerWidth      | double            | 0.8888                                            | width of the iFrame as a fraction of the screen width                                                       |
 
 
-`VideoProps` Object
+The `onPlay` callback passes a `VideoProps` object with the following data:
 
-| Property     | Type   | Description                                                         | Required |
-| ------------ | ------ | ------------------------------------------------------------------- | -------- |
-| VideoTrigger | null   | Attribute to trigger the player library                             | Yes      |
-| VideoId      | string | Id of the video as set via the `data-<videoType>-id` data attribute | Yes      |
-| VideoType    | string | Type of the video. Either "youtube" or "vimeo"                      | Yes      |
-| VideoName    | string | Name of the video as set via the `data-video-name` data attribute   | No       |
+```javascript
+  {
+    videoId: <string>,
+    videoName: <string>,
+    videoType: <string>
+  }
+```
