@@ -3,7 +3,7 @@ function appendModal(el, closeButtonColor, backgroundColor) {
   modal.setAttribute('aria-hidden', 'true');
   modal.setAttribute('tabindex', '-1');
   modal.classList.add('video-frame-wrapper');
-  modal.style = `background-color: ${backgroundColor};`;
+  modal.style.backgroundColor = backgroundColor;
   modal.innerHTML = `
     <button class="video-frame-close"  tabindex="-1">
       <svg role="img" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" aria-labellby="video-modal-close-title">

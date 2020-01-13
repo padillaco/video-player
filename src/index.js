@@ -15,6 +15,7 @@ import appendModal from './appendModal';
 import createIFrame from './createIFrame';
 import resizeVideoFrame from './resizeFrame';
 import initBooleanProp from './initBooleanProp';
+import capitalize from './capitalize';
 import './optimizedResize';
 import './styles.css';
 
@@ -50,7 +51,7 @@ class VideoPlayer {
       this.videoFrameActive = true;
       this.onPlay({ videoName, videoId, videoType });
       resizeVideoFrame(this.frameCenter);
-      if (this.fixBodyOnPlay) document.body.style = 'position: fixed';
+      if (this.fixBodyOnPlay) document.body.style.position = 'fixed';
     };
   }
 
@@ -70,7 +71,7 @@ class VideoPlayer {
     if (config.buttonElements) return config.buttonElements;
     const els = document.querySelectorAll(`[data-video-trigger]`);
     if (els.length === 0) {
-      console.warn('VideoPlayer Error: No Button Elements could be found');
+      console.warn('VideoPlayer Warning: No Button Elements could be found');
     }
     return els;
   };
@@ -96,8 +97,9 @@ class VideoPlayer {
   _playVideo = ({ currentTarget }) => {
     if (!this.videoActive) {
       for (let type of videoTypes) {
-        if (currentTarget.dataset[`${type}Id`]) {
-          this.videoId = currentTarget.dataset[`${type}Id`];
+        const videoIdAttr = `video${capitalize(type)}Id`;
+        if (currentTarget.dataset[videoIdAttr]) {
+          this.videoId = currentTarget.dataset[videoIdAttr];
           this.videoType = type;
           this.videoName = currentTarget.dataset.videoName;
         }
@@ -132,7 +134,7 @@ class VideoPlayer {
   };
 
   hideVideoFrame = () => {
-    if (this.fixBodyOnPlay) document.body.style = 'position: static';
+    if (this.fixBodyOnPlay) document.body.style.position = 'static';
     this.frameWrapper.className = this.frameWrapper.className.replace(
       /\s+?-visible/,
       ''

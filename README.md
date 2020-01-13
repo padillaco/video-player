@@ -20,9 +20,9 @@ npm install @padillaco/video-player
 VideoPlayer looks for elements that have a `data-video-trigger` attribute, unless you provide the elements directly (see configuration). These elements alsmo must have a `data-<videoType>-id` attribute.  This is the unique id of the video.  VideoType can be either "youtube" or "vimeo". You can have multiple player button elements.  You can optionally set a `data-video-name` attribute that will be available in the `onPlay` callback.  This is useful for sending Google Analytics Events.  Here's a basic example:
 
 ```html
- <button 
+ <button
   data-video-trigger
-  video-youtube-id="lkajg292" 
+  data-video-youtube-id="lkajg292"
   data-video-name="MyVideo">Play</button>
 ```
 
