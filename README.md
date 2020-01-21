@@ -55,3 +55,12 @@ The `onPlay` callback passes a `VideoProps` object with the following data:
     videoType: <string>
   }
 ```
+
+## IE11 Compatibility
+
+In order to use the video player on IE11, two polyfills must be used: `Object.forEach` and `Symbol`. If you are using `core-js` for your polyfills, the following two imports will suffice:
+
+ ```javascript 
+  import "core-js/web/dom-collections";
+  import "core-js/es/symbol";
+ ```
