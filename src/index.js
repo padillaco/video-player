@@ -50,7 +50,7 @@ class VideoPlayer {
       const { videoName, videoId, videoType } = this;
       this.videoFrameActive = true;
       this.onPlay({ videoName, videoId, videoType });
-      resizeVideoFrame(this.frameCenter);
+      resizeVideoFrame(this.frameCenter, this.playerWidth);
       if (this.fixBodyOnPlay) document.body.style.position = 'fixed';
     };
   }

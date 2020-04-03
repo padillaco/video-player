@@ -1,8 +1,9 @@
-export default function resizeVideoFrame(frameCenter) {
+export default function resizeVideoFrame(frameCenter, playerWidth) {
+  console.log(playerWidth);
   const winWidth = window.innerWidth;
   const winHeight = window.innerHeight;
-  let centerWidth = 0.88888 * winWidth;
-  const centerHeightMax = 0.88888 * winHeight;
+  let centerWidth = playerWidth * winWidth;
+  const centerHeightMax = playerWidth * winHeight;
   let centerHeight = 0.5625 * centerWidth;
 
   if (centerHeight > centerHeightMax) {
