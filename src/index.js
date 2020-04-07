@@ -10,6 +10,7 @@
       - onPlay function(videoId, videoName): function that executes when a video starts to play.
       - onStop function(videoId, videoName): function that executes when a video stops playing.
 */
+import "./polyfills/remove";
 
 import appendModal from './appendModal';
 import createIFrame from './createIFrame';
